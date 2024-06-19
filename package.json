@@ -1,0 +1,17 @@
+{
+  "name": "tefenua-ol-map-demo",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite dev --open",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "ol": "^9.2.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.3.1",
+    "vite-plugin-html": "^3.2.2"
+  }
+}
