@@ -26,14 +26,14 @@ async function main () {
   const capabilities = await fetchTefenuaWmtsCapabilities()
 
   // Couche de fond Tefenua.
-  // Obtient les options WMTS de la couche pour un matrixSet et format donnée.
+  // Obtient les options WMTS de la couche pour un matrixSet et format donné.
   const fondWmts = optionsFromCapabilities(capabilities, {
     layer: 'TEFENUA:FOND',
     matrixSet: 'EPSG:4326',
     format: 'image/jpeg'
   })
   const fond = new TileLayer({
-    zIndex: 0,
+    zIndex: 1,
     source: new WMTS({
       ...fondWmts,
       attributions: ['Tefenua © Polynésie française']
@@ -47,7 +47,7 @@ async function main () {
     format: 'image/png'
   })
   const cadastre = new TileLayer({
-    zIndex: 0,
+    zIndex: 10,
     source: new WMTS({
       ...cadastreWmts,
       attributions: ['DAF/Cadastre-Topo © Polynésie française']
@@ -56,7 +56,9 @@ async function main () {
 
   // Couche OSM.
   const osm = new TileLayer({
-    source: new OSM()
+    source: new OSM(),
+    visible: false,
+    zIndex: 0
   })
 
   // Vue de carte centrée sur Tahiti.
@@ -71,7 +73,7 @@ async function main () {
     target: 'map',
     view,
     layers: [
-      // osm,
+      osm,
       fond,
       cadastre
     ]
