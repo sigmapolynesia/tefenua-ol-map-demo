@@ -2,7 +2,7 @@
   "name": "tefenua-ol-map-demo",
   "private": true,
   "scripts": {
-    "build": "vite build",
+    "build": "vite build --emptyOutDir",
     "dev": "vite dev --open",
     "preview": "vite preview"
   },
