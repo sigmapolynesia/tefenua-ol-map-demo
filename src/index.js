@@ -1,11 +1,14 @@
 import './style.css'
 import Map from 'ol/Map.js'
-import OSM from 'ol/source/OSM.js'
 import TileLayer from 'ol/layer/Tile.js'
 import View from 'ol/View.js'
 import { WMTSCapabilities } from 'ol/format'
 import WMTS, { optionsFromCapabilities } from 'ol/source/WMTS'
 
+/**
+ * URL du service WMTS de Tefenua.
+ * @type {string}
+ */
 const TEFENUA_WMTS_URL = 'https://www.tefenua.gov.pf/api/wmts'
 
 /**
@@ -40,27 +43,6 @@ async function main () {
     })
   })
 
-  // Couche du cadastre.
-  const cadastreWmts = optionsFromCapabilities(capabilities, {
-    layer: 'TEFENUA:CADASTRE',
-    matrixSet: 'EPSG:4326',
-    format: 'image/png'
-  })
-  const cadastre = new TileLayer({
-    zIndex: 10,
-    source: new WMTS({
-      ...cadastreWmts,
-      attributions: ['DAF/Cadastre-Topo © Polynésie française']
-    })
-  })
-
-  // Couche OSM.
-  const osm = new TileLayer({
-    source: new OSM(),
-    visible: false,
-    zIndex: 0
-  })
-
   // Vue de carte centrée sur Tahiti.
   const view = new View({
     projection: 'EPSG:4326',
@@ -73,11 +55,9 @@ async function main () {
     target: 'map',
     view,
     layers: [
-      osm,
-      fond,
-      cadastre
+      fond
     ]
   })
 }
 
-main()
+await main()
